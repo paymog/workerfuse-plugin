@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "workerfuse",
+  "version": "1.0.0",
+  "description": "Read estimated Cloudflare Workers spend, pause runaway scripts, resume them, and set spend limits.",
+  "author": {
+    "name": "workerfuse",
+    "email": "support@workerfuse.com",
+    "url": "https://workerfuse.com"
+  },
+  "homepage": "https://workerfuse.com/developers",
+  "repository": "https://github.com/paymog/workerfuse-plugin",
+  "keywords": ["cloudflare", "workers", "cost", "spend-limits", "mcp"]
+}

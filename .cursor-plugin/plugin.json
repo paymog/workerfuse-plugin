@@ -1,0 +1,14 @@
+{
+  "name": "workerfuse",
+  "displayName": "workerfuse",
+  "version": "1.0.0",
+  "description": "Read estimated Cloudflare Workers spend, pause runaway scripts, resume them, and set spend limits.",
+  "author": { "name": "workerfuse", "email": "support@workerfuse.com" },
+  "homepage": "https://workerfuse.com/developers",
+  "repository": "https://github.com/paymog/workerfuse-plugin",
+  "keywords": ["cloudflare", "workers", "cost", "spend-limits", "mcp"],
+  "logo": "assets/logo.svg",
+  "mcpServers": {
+    "workerfuse": { "url": "https://workerfuse.com/mcp" }
+  }
+}
