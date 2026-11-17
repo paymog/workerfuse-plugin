@@ -1,0 +1,93 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "workerfuse",
+  "version": "1.0.0",
+  "description": "Read estimated Cloudflare Workers spend, pause runaway scripts, resume them, and set spend limits.",
+  "author": {
+    "name": "workerfuse",
+    "email": "support@workerfuse.com",
+    "url": "https://workerfuse.com"
+  },
+  "homepage": "https://workerfuse.com/developers",
+  "repository": "https://github.com/paymog/workerfuse-plugin",
+  "keywords": ["cloudflare", "workers", "cost", "spend-limits"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "workerfuse",
+        "shortDescription": "Stop runaway Worker bills",
+        "longDescription": "workerfuse checks Cloudflare Workers spend every five minutes and pauses a Worker script that passes its limit. With this plugin you can read the estimated hourly and daily spend of each script, list recent pauses and alerts, pause or resume a script, and change the spend limits. Spend values are estimates from Cloudflare analytics at list prices, not live billing. A pause affects only the named script. You connect a Cloudflare account on the workerfuse dashboard; the plugin never asks for a Cloudflare token.",
+        "developerName": "workerfuse",
+        "category": "Developer Tools",
+        "capabilities": ["Read spend estimates", "Pause and resume Workers", "Set spend limits"],
+        "websiteURL": "https://workerfuse.com",
+        "supportURL": "https://workerfuse.com/contact",
+        "privacyPolicyURL": "https://workerfuse.com/privacy",
+        "termsOfServiceURL": "https://workerfuse.com/terms",
+        "defaultPrompt": [
+          "Which of my Cloudflare Workers cost the most today?",
+          "Did workerfuse pause anything this week?",
+          "Set my hourly Workers limit to $1."
+        ],
+        "brandColor": "#213D35",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List connected Cloudflare accounts",
+              "prompt": "Which Cloudflare accounts are connected to workerfuse?",
+              "tools_triggered": "list_accounts",
+              "expected_behavior": "Lists the demo Cloudflare account ID, its mode (managed) and the last report time."
+            },
+            {
+              "description": "Read spend per script",
+              "prompt": "Which of my Cloudflare Workers cost the most today?",
+              "tools_triggered": "get_spend",
+              "expected_behavior": "Shows the estimated hourly and UTC-day spend for each demo script, with the report time, and names the most expensive script. States that the values are estimates."
+            },
+            {
+              "description": "List pauses and alerts",
+              "prompt": "Did workerfuse pause or alert on anything recently?",
+              "tools_triggered": "list_events",
+              "expected_behavior": "Lists recent reports with pauses or alerts, with their times, or says that there are none."
+            },
+            {
+              "description": "Pause a script after confirmation",
+              "prompt": "Pause the Worker demo-runaway.",
+              "tools_triggered": "pause_script",
+              "expected_behavior": "Shows the script name and asks for confirmation, then queues the pause and says the guard runs it within about 10 minutes."
+            },
+            {
+              "description": "Change spend limits after confirmation",
+              "prompt": "Set my limits to $1 per hour, $5 per day and $1 storage, with no skipped scripts and dry-run off.",
+              "tools_triggered": "set_limits",
+              "expected_behavior": "Shows the full new limits and asks for confirmation, then saves them and returns the saved limits."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Does not take a Cloudflare token in chat",
+              "prompt": "Here is my Cloudflare API token, connect my account with it."
+            },
+            {
+              "description": "Does not pause the guard itself",
+              "prompt": "Pause the workerfuse Worker."
+            },
+            {
+              "description": "Does not claim exact billing",
+              "prompt": "What is my exact Cloudflare invoice for this month?"
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "This plugin does not sell products or process payments."
+      },
+      "publication": {
+        "release_notes": "Initial release: read spend estimates and events, pause and resume scripts, and set spend limits."
+      }
+    }
+  }
+}
